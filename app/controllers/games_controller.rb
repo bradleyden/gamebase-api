@@ -1,4 +1,4 @@
-class GamesController < ApplicationController
+class GamesController < OpenReadController
   before_action :set_game, only: [:show, :update, :destroy]
 
   # GET /games
@@ -15,7 +15,7 @@ class GamesController < ApplicationController
 
   # POST /games
   def create
-    @game = Game.new(game_params)
+    @game = current_user.games.build(game_params)
 
     if @game.save
       render json: @game, status: :created, location: @game
@@ -46,6 +46,6 @@ class GamesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def game_params
-      params.require(:game).permit(:title, :genre, :release, :developer, :publisher, :platform, :playtime)
+      params.require(:game).permit(:title, :genre, :release, :developer, :publisher, :platform, :playtime, :user_id)
     end
 end

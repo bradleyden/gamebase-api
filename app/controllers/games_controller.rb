@@ -3,7 +3,7 @@ class GamesController < OpenReadController
 
   # GET /games
   def index
-    @games = Game.all
+    @games = current_user.games.all
 
     render json: @games
   end

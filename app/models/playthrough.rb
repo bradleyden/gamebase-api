@@ -1,5 +1,5 @@
-class Game < ApplicationRecord
+class Playthrough < ApplicationRecord
   belongs_to :user
-  has_many :playthroughs
+  belongs_to :game
   validates :title, :genre, :release, :developer, :publisher, :platform, :playtime, :user, presence: true
 end

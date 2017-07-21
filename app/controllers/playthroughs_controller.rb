@@ -1,4 +1,4 @@
-class PlaythroughsController < ApplicationController
+class PlaythroughsController < OpenReadController
   before_action :set_playthrough, only: [:show, :update, :destroy]
 
   # GET /playthroughs
@@ -46,6 +46,6 @@ class PlaythroughsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def playthrough_params
-      params.fetch(:playthrough, {})
+      params.require(:playthrough).permit(:game_id, :user_id, :date_started, :date_finished, :time, :completion)
     end
 end

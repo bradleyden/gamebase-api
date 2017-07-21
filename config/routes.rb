@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   patch '/change-password/:id' => 'users#changepw'
   resources :users, only: [:index, :show]
   resources :games, except: [:new, :edit]
+  resources :playthroughs, except: [:new, :edit]
 end

@@ -18,7 +18,7 @@ class GamesController < OpenReadController
     @game = current_user.games.build(game_params)
 
     if @game.save
-      render json: @game, status: :created, location: @game
+      render json: current_user.games.all
     else
       render json: @game.errors, status: :unprocessable_entity
     end
@@ -27,7 +27,7 @@ class GamesController < OpenReadController
   # PATCH/PUT /games/1
   def update
     if @game.update(game_params)
-      render json: @game
+      render json: current_user.games.all
     else
       render json: @game.errors, status: :unprocessable_entity
     end
@@ -36,6 +36,7 @@ class GamesController < OpenReadController
   # DELETE /games/1
   def destroy
     @game.destroy
+    render json: current_user.games.all
   end
 
   private

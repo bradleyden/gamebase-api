@@ -18,7 +18,7 @@ class PlaythroughsController < OpenReadController
     @playthrough = Playthrough.new(playthrough_params)
 
     if @playthrough.save
-      render json: @playthrough, status: :created, location: @playthrough
+      render json: Playthrough.all, status: :created, location: @playthrough
     else
       render json: @playthrough.errors, status: :unprocessable_entity
     end
@@ -27,7 +27,7 @@ class PlaythroughsController < OpenReadController
   # PATCH/PUT /playthroughs/1
   def update
     if @playthrough.update(playthrough_params)
-      render json: @playthrough
+      render json: Playthrough.all
     else
       render json: @playthrough.errors, status: :unprocessable_entity
     end
@@ -36,6 +36,7 @@ class PlaythroughsController < OpenReadController
   # DELETE /playthroughs/1
   def destroy
     @playthrough.destroy
+    render json: Playthrough.all
   end
 
   private
@@ -46,6 +47,6 @@ class PlaythroughsController < OpenReadController
 
     # Only allow a trusted parameter "white list" through.
     def playthrough_params
-      params.require(:playthrough).permit(:game_id, :user_id, :date_started, :date_finished, :time, :completion)
+      params.require(:playthrough).permit(:game_id, :user_id, :game, :date_started, :date_finished, :time, :completion)
     end
 end

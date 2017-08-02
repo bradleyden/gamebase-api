@@ -3,7 +3,7 @@ class PlaythroughsController < OpenReadController
 
   # GET /playthroughs
   def index
-    @playthroughs = Playthrough.all
+    @playthroughs = current_user.playthroughs.all
 
     render json: @playthroughs
   end
@@ -15,10 +15,10 @@ class PlaythroughsController < OpenReadController
 
   # POST /playthroughs
   def create
-    @playthrough = Playthrough.new(playthrough_params)
+    @playthrough = current_user.playthroughs.build(playthrough_params)
 
     if @playthrough.save
-      render json: Playthrough.all, status: :created, location: @playthrough
+      render json: current_user.playthroughs.all, status: :created
     else
       render json: @playthrough.errors, status: :unprocessable_entity
     end
@@ -27,7 +27,7 @@ class PlaythroughsController < OpenReadController
   # PATCH/PUT /playthroughs/1
   def update
     if @playthrough.update(playthrough_params)
-      render json: Playthrough.all
+      render json: current_user.playthroughs.all
     else
       render json: @playthrough.errors, status: :unprocessable_entity
     end

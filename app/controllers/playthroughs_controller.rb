@@ -36,13 +36,13 @@ class PlaythroughsController < OpenReadController
   # DELETE /playthroughs/1
   def destroy
     @playthrough.destroy
-    render json: Playthrough.all
+    render json: current_user.playthroughs.all
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_playthrough
-      @playthrough = Playthrough.find(params[:id])
+      @playthrough = current_user.playthroughs.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
